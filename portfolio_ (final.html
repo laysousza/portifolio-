@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layla Sousa — Portfólio PCM & Dados</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --teal-900: #0d3b38; --teal-700: #0f5c57; --teal-500: #14897f;
+            --teal-400: #1ab5a8; --teal-300: #4dd4c8; --teal-100: #d0f4f1;
+            --teal-50: #f0fdfb; --slate: #1c2b2a; --muted: #5a7876;
+            --white: #ffffff; --off: #f5fafa;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--slate); overflow-x: hidden; }
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 60px; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(20,137,127,0.1); }
+        .nav-logo { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: var(--teal-700); letter-spacing: -0.02em; }
+        .nav-logo span { color: var(--teal-400); }
+        .nav-links { display: flex; gap: 36px; list-style: none; }
+        .nav-links a { font-size: 13px; font-weight: 500; color: var(--muted); text-decoration: none; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--teal-500); }
+        #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 120px 60px 80px; position: relative; overflow: hidden; background: var(--white); gap: 20px; }
+        #hero::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(20,137,127,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(20,137,127,0.06) 1px, transparent 1px); background-size: 48px 48px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); }
+        #hero::after { content: ''; position: absolute; top: -200px; right: -200px; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(26,181,168,0.18) 0%, transparent 70%); animation: pulse 6s ease-in-out infinite alternate; }
+        @keyframes pulse { from { transform: scale(1); } to { transform: scale(1.1); } }
+        .hero-inner { position: relative; z-index: 2; }
+        .hero-gears { position: relative; z-index: 2; display: flex; justify-content: center; align-items: center; }
+        #gearCanvas { width: 100%; max-width: 460px; height: auto; opacity: 0.88; }
+        @media (max-width: 900px) { #hero { grid-template-columns: 1fr; } .hero-gears { display: none; } }
+        .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal-500); margin-bottom: 28px; }
+        .hero-eyebrow::before { content: ''; display: block; width: 32px; height: 2px; background: var(--teal-400); border-radius: 2px; }
+        h1 { font-family: 'Syne', sans-serif; font-size: clamp(52px, 7vw, 88px); font-weight: 800; line-height: 0.95; letter-spacing: -0.03em; color: var(--teal-900); margin-bottom: 28px; }
+        h1 em { font-style: normal; color: var(--teal-400); }
+        .hero-desc { font-size: 18px; font-weight: 300; line-height: 1.7; color: var(--muted); max-width: 520px; margin-bottom: 48px; }
+        .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+        .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--teal-500); color: white; padding: 14px 28px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; letter-spacing: 0.02em; box-shadow: 0 8px 24px rgba(20,137,127,0.35); transition: all 0.25s; }
+        .btn-primary:hover { background: var(--teal-400); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(20,137,127,0.45); }
+        .btn-ghost { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--teal-700); padding: 14px 28px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; letter-spacing: 0.02em; border: 1.5px solid rgba(20,137,127,0.3); transition: all 0.25s; }
+        .btn-ghost:hover { border-color: var(--teal-400); background: var(--teal-50); transform: translateY(-2px); }
+        .scroll-hint { position: absolute; bottom: 40px; left: 60px; z-index: 2; display: flex; align-items: center; gap: 12px; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+        .scroll-line { width: 48px; height: 1px; background: var(--teal-300); animation: scrollLine 2s ease-in-out infinite alternate; }
+        @keyframes scrollLine { from { width: 24px; opacity: 0.4; } to { width: 56px; opacity: 1; } }
+        section { padding: 100px 60px; }
+        .section-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--teal-500); margin-bottom: 12px; }
+        .section-title { font-family: 'Syne', sans-serif; font-size: clamp(32px, 4vw, 48px); font-weight: 800; letter-spacing: -0.02em; color: var(--teal-900); margin-bottom: 16px; line-height: 1.1; }
+        .section-sub { font-size: 16px; font-weight: 300; color: var(--muted); line-height: 1.7; max-width: 560px; margin-bottom: 56px; }
+        .divider-accent { width: 40px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, var(--teal-400), var(--teal-300)); margin-bottom: 6px; }
+        #sobre { background: var(--off); }
+        .sobre-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .skills-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+        .skill-tag { display: inline-block; padding: 7px 16px; border-radius: 100px; font-size: 12px; font-weight: 600; background: var(--teal-100); color: var(--teal-700); letter-spacing: 0.02em; border: 1px solid rgba(20,137,127,0.2); }
+        .sobre-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px; }
+        .stat-item { background: white; border-radius: 14px; padding: 24px 20px; border: 1px solid rgba(20,137,127,0.12); box-shadow: 0 2px 12px rgba(20,137,127,0.06); }
+        .stat-number { font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 800; color: var(--teal-400); line-height: 1; margin-bottom: 6px; }
+        .stat-label { font-size: 12px; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+        .sobre-visual { position: relative; display: flex; justify-content: center; }
+        .sobre-card { background: white; border-radius: 24px; padding: 40px; width: 100%; max-width: 380px; border: 1px solid rgba(20,137,127,0.12); box-shadow: 0 20px 60px rgba(20,137,127,0.12); position: relative; }
+        .sobre-card::before { content: ''; position: absolute; top: -2px; left: 40px; right: 40px; height: 4px; background: linear-gradient(90deg, var(--teal-400), var(--teal-300)); border-radius: 0 0 4px 4px; }
+        .avatar-placeholder { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--teal-400), var(--teal-700)); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; color: white; margin-bottom: 20px; box-shadow: 0 8px 24px rgba(20,137,127,0.3); }
+        .sobre-name { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: var(--teal-900); margin-bottom: 4px; }
+        .sobre-role { font-size: 13px; color: var(--muted); font-weight: 400; margin-bottom: 24px; }
+        .sobre-detail { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--slate); padding: 10px 0; border-bottom: 1px solid var(--teal-50); }
+        .sobre-detail:last-child { border-bottom: none; }
+        .detail-icon { font-size: 16px; width: 20px; text-align: center; }
+        #projetos { background: white; }
+        .cat-tabs { display: flex; gap: 8px; margin-bottom: 40px; flex-wrap: wrap; }
+        .cat-tab { padding: 9px 20px; border-radius: 100px; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; cursor: pointer; border: 1.5px solid #e2e8f0; background: white; color: var(--muted); transition: all 0.2s; }
+        .cat-tab:hover, .cat-tab.active { background: var(--teal-500); color: white; border-color: var(--teal-500); }
+        .projetos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .projeto-card { border-radius: 18px; overflow: hidden; border: 1px solid rgba(20,137,127,0.1); box-shadow: 0 2px 12px rgba(0,0,0,0.04); transition: all 0.3s ease; background: white; display: flex; flex-direction: column; }
+        .projeto-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(20,137,127,0.16); border-color: rgba(20,137,127,0.25); }
+        .card-thumb { height: 180px; display: flex; align-items: center; justify-content: center; font-size: 52px; position: relative; overflow: hidden; }
+        .card-thumb.html { background: linear-gradient(135deg, #0d3b38, #0f5c57); }
+        .card-thumb.excel { background: linear-gradient(135deg, #0f5c57, #14897f); }
+        .card-thumb.pbi { background: linear-gradient(135deg, #1a3a5c, #1e5fa8); }
+        .card-thumb-label { position: absolute; top: 14px; right: 14px; font-size: 9px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 100px; backdrop-filter: blur(4px); }
+        .card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+        .card-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal-500); margin-bottom: 8px; }
+        .card-title { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 800; color: var(--teal-900); margin-bottom: 10px; line-height: 1.2; }
+        .card-desc { font-size: 13px; font-weight: 300; color: var(--muted); line-height: 1.65; flex: 1; }
+        .card-footer { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; border-top: 1px solid var(--teal-50); }
+        .card-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+        .chip { font-size: 10px; font-weight: 600; background: var(--teal-50); color: #0f756d; padding: 4px 10px; border-radius: 100px; border: 1px solid var(--teal-100); }
+        .card-link { font-size: 12px; font-weight: 700; color: var(--teal-500); text-decoration: none; letter-spacing: 0.04em; display: flex; align-items: center; gap: 4px; transition: color 0.2s; white-space: nowrap; }
+        .card-link:hover { color: var(--teal-400); }
+        #contato { background: var(--teal-900); }
+        #contato .section-eyebrow { color: var(--teal-300); }
+        #contato .section-title { color: white; }
+        #contato .section-sub { color: rgba(255,255,255,0.5); }
+        .contato-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .contact-items { display: flex; flex-direction: column; gap: 16px; }
+        .contact-item { display: flex; align-items: center; gap: 18px; padding: 20px 24px; border-radius: 14px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); text-decoration: none; transition: all 0.25s; }
+        .contact-item:hover { background: rgba(26,181,168,0.12); border-color: rgba(26,181,168,0.3); transform: translateX(6px); }
+        .contact-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(26,181,168,0.15); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+        .contact-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal-300); margin-bottom: 3px; }
+        .contact-value { font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.8); }
+        .contato-quote { padding: 40px; border-left: 3px solid var(--teal-400); }
+        .contato-quote blockquote { font-size: clamp(20px, 2.5vw, 28px); font-weight: 300; font-style: italic; color: rgba(255,255,255,0.85); line-height: 1.5; margin-bottom: 20px; }
+        .contato-quote cite { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal-400); font-style: normal; }
+        footer { background: #071f1e; padding: 28px 60px; display: flex; justify-content: space-between; align-items: center; }
+        .footer-copy { font-size: 12px; color: rgba(255,255,255,0.25); }
+        .footer-logo { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 800; color: rgba(255,255,255,0.35); }
+        .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+        @media (max-width: 900px) {
+            nav { padding: 18px 24px; }
+            section { padding: 72px 24px; }
+            #hero { padding: 100px 24px 72px; }
+            .sobre-grid, .contato-grid { grid-template-columns: 1fr; gap: 40px; }
+            .projetos-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            footer { padding: 24px; flex-direction: column; gap: 8px; }
+            .scroll-hint { left: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-logo">Layla<span>.</span></div>
+        <ul class="nav-links">
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#projetos">Projetos</a></li>
+            <li><a href="#contato">Contato</a></li>
+        </ul>
+    </nav>
+
+    <section id="hero">
+        <div class="hero-inner">
+            <div class="hero-eyebrow">Portfólio — Engenharia & Dados</div>
+            <h1>Layla<br><em>Sousa</em></h1>
+            <p class="hero-desc">
+                Graduanda de Engenharia Mecânica e Técnica em Eletromecânica.<br>
+                Atuação no PCM com foco em análise de dados, dashboards e automação de processos de manutenção.
+            </p>
+            <div class="hero-ctas">
+                <a href="#projetos" class="btn-primary">Ver Projetos →</a>
+                <a href="#contato" class="btn-ghost">Entrar em contato</a>
+            </div>
+        </div>
+        <div class="hero-gears">
+            <canvas id="gearCanvas" width="460" height="400"></canvas>
+        </div>
+        <div class="scroll-hint"><div class="scroll-line"></div> mais informações abaixo</div>
+    </section>
+
+    <section id="sobre">
+        <div class="sobre-grid">
+            <div>
+                <div class="divider-accent"></div>
+                <p class="section-eyebrow">Sobre mim</p>
+                <h2 class="section-title">Engenharia na prática,<br>dados como ferramenta</h2>
+                <p class="section-sub" style="margin-bottom:0;">
+                    Atua no Planejamento e Controle de Manutenção (PCM) desenvolvendo soluções que transformam dados operacionais em decisões mais rápidas e confiáveis — de dashboards em Power BI a sistemas de gestão em HTML.
+                </p>
+                <div class="skills-list">
+                    <span class="skill-tag">PCM</span>
+                    <span class="skill-tag">Power BI</span>
+                    <span class="skill-tag">Excel Avançado</span>
+                    <span class="skill-tag">HTML / CSS</span>
+                    <span class="skill-tag">Análise de Dados</span>
+                    <span class="skill-tag">Manutenção Corretiva</span>
+                    <span class="skill-tag">Manutenção Preventiva</span>
+                    <span class="skill-tag">Eletromecânica</span>
+                    <span class="skill-tag">Gestão Ambiental</span>
+                    <span class="skill-tag">Suprimentos</span>
+                </div>
+                <div class="sobre-stats">
+                    <div class="stat-item"><div class="stat-number">8</div><div class="stat-label">Projetos entregues</div></div>
+                    <div class="stat-item"><div class="stat-number">4+</div><div class="stat-label">Ferramentas dominadas</div></div>
+                </div>
+            </div>
+            <div class="sobre-visual">
+                <div class="sobre-card">
+                    <div class="avatar-placeholder">LS</div>
+                    <div class="sobre-name">Layla Sousa</div>
+                    <div class="sobre-role">Estudante de Eng. Mecânica · Téc. Eletromecânica</div>
+                    <div class="sobre-detail"><span class="detail-icon">🎓</span> Engenharia Mecânica (em andamento)</div>
+                    <div class="sobre-detail"><span class="detail-icon">⚙️</span> Técnica em Eletromecânica</div>
+                    <div class="sobre-detail"><span class="detail-icon">📊</span> PCM — Planejamento e Controle de Manutenção</div>
+                    <div class="sobre-detail"><span class="detail-icon">🏢</span> Ágora Engenharia Júnior — UEMA</div>
+                    <div class="sobre-detail"><span class="detail-icon">📍</span> São Luís - MA</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projetos">
+        <div class="divider-accent"></div>
+        <p class="section-eyebrow">Projetos</p>
+        <h2 class="section-title">O que construí</h2>
+        <p class="section-sub">Sistemas web, dashboards e planilhas desenvolvidos para resolver problemas reais de manutenção, gestão e análise de dados.</p>
+
+        <div class="cat-tabs">
+            <button class="cat-tab active" onclick="filterCat('todos',this)">Todos (8)</button>
+            <button class="cat-tab" onclick="filterCat('html',this)">⚙️ Sistemas Web (4)</button>
+            <button class="cat-tab" onclick="filterCat('pbi',this)">📊 Power BI (2)</button>
+            <button class="cat-tab" onclick="filterCat('excel',this)">📗 Excel (2)</button>
+        </div>
+
+        <div class="projetos-grid">
+
+            <div class="projeto-card fade-up" data-cat="html">
+                <div class="card-thumb html"><span>🔧</span><span class="card-thumb-label">HTML · JS</span></div>
+                <div class="card-body">
+                    <div class="card-tag">Sistema Web · PCM</div>
+                    <div class="card-title">Dashboard de Gestão de Manutenção</div>
+                    <p class="card-desc">Sistema completo de controle de ordens de serviço preventivas com KPIs de aderência ao plano, gauge de performance, gráficos por setor e fluxo de execução de OS.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="card-chips"><span class="chip">HTML</span><span class="chip">Chart.js</span><span class="chip">Tailwind</span></div>
+                    <a href="https://laysousza.github.io/manuten21/" target="_blank" class="card-link">Ver →</a>
+                </div>
+            </div>
+
+            <div class="projeto-card fade-up" data-cat="html">
+                <div class="card-thumb html" style="background:linear-gradient(135deg,#064e3b,#065f46);"><span>🌿</span><span class="card-thumb-label">HTML · JS</span></div>
+                <div class="card-body">
+                    <div class="card-tag">Sistema Web · Ambiental & Segurança</div>
+                    <div class="card-title">Gestão Ambiental & Inspeções</div>
+                    <p class="card-desc">Controle de documentação legal (licenças, ASO, NRs), inspeções com mapa geográfico operacional, histórico de inspeções e gestão de colaboradores e terceiros.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="card-chips"><span class="chip">HTML</span><span class="chip">Chart.js</span><span class="chip">Mapa SVG</span></div>
+                    <a href="https://laysousza.github.io/ambiental-ref1/" target="_blank" class="card-link">Ver →</a>
+                </div>
+            </div>
+
+            <div class="projeto-card fade-up" data-cat="html">
+                <div class="card-thumb html" style="background:linear-gradient(135deg,#1e3a5f,#1d4ed8);"><span>📦</span><span class="card-thumb-label">HTML · JS</span></div>
+                <div class="card-body">
+                    <div class="card-tag">Sistema Web · Suprimentos</div>
+                    <div class="card-title">Dashboard de Suprimentos</div>
+                    <p class="card-desc">Controle financeiro do PCM com análise orçamentária, lead time por comprador, controle de notas fiscais, pendências de pedido de compra e distribuição por categoria de gasto.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="card-chips"><span class="chip">HTML</span><span class="chip">Chart.js</span><span class="chip">Tailwind</span></div>
+                    <a href="https://laysousza.github.io/suprim12/" target="_blank" class="card-link">Ver →</a>
+                </div>
+            </div>
+
+            <div class="projeto-card fade-up" data-cat="html">
+                <div class="card-thumb html" style="background:linear-gradient(135deg,#0f172a,#1e293b);"><span>📋</span><span class="card-thumb-label">HTML · JS</span></div>
+                <div class="card-body">
+                    <div class="card-tag">Sistema Web · Formulário</div>
+                    <div class="card-title">Abertura de Solicitação de Manutenção</div>
+                    <p class="card-desc">Formulário inteligente para abertura de ordens de serviço corretivas por setor — elétrica, mecânica e refrigeração — com prioridade, TAG do equipamento e descrição da falha.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="card-chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">Tailwind</span></div>
+                    <a href="https://laysousza.github.io/solicita-o1/" target="_blank" class="card-link">Ver →</a>
+                </div>
+            </div>
+
+            <div class="projeto-card fade-up" data-cat="pbi">
+                <div class="card-thumb pbi"><span>💰</span><span class="card-thumb-label">Power BI</span></div>
+                <div class="card-body">
+                    <div class="card-tag">Dashboard · Financeiro</div>
+                    <div class="card-title">Dashboard Financeiro — Ágora Engenharia</div>
+                    <p class="card-desc">Painel de controle de caixa com faturamento vs meta no portal, evolução acumulada mês a mês, breakdown de receitas e despesas por categoria e gauge de atingimento de meta.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="card-chips"><span class="chip">Power BI</span><span class="chip">DAX</span><span class="chip">Financeiro</span></div>
+                    <a href="#" class="card-link">Ver →</a>
+                </div>
+            </div>
+
+            <div class="projeto-card fade-up" data-cat="pbi">
+                <div class="card-thumb pbi" style="background:linear-gradient(135deg,#0c2340,#1a4480);"><span>🏭</span><span class="card-thumb-label">Power BI</span></div>
+                <div class="card-body">
+                    <div class="card-tag">Dashboard · Inspeção Industrial</div>
+                    <div class="card-title">Inspeção de Correias Transportadoras — TEGRAM</div>
+                    <p class="card-desc">Controle de emendas de correias com grau de exposição (baixo, regular, crítico), executante do serviço, status de OS e prioridade. Filtros por CT, linha e sistema com tabela detalhada.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="card-chips"><span class="chip">Power BI</span><span class="chip">DAX</span><span class="chip">Manutenção</span></div>
+                    <a href="#" class="card-link">Ver →</a>
+                </div>
+            </div>
+
+            <div class="projeto-card fade-up" data-cat="excel">
+                <div class="card-thumb excel"><span>👥</span><span class="card-thumb-label">Excel</span></div>
+                <div class="card-body">
+                    <div class="card-tag">Planilha · Gestão de Pessoas</div>
+                    <div class="card-title">Dashboard de Gestão de Pessoas — Eng. Júnior</div>
+                    <p class="card-desc">Controle de atividades e reuniões da empresa júnior com andamento por diretoria, percentual de atraso por área, tabela de presença em reuniões e gráficos por status de entrega.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="card-chips"><span class="chip">Excel</span><span class="chip">Tabela Dinâmica</span><span class="chip">Gráficos</span></div>
+                    <a href="#" class="card-link">Ver →</a>
+                </div>
+            </div>
+
+            <div class="projeto-card fade-up" data-cat="excel">
+                <div class="card-thumb excel" style="background:linear-gradient(135deg,#4a1942,#7c3aed);"><span>💳</span><span class="card-thumb-label">Excel</span></div>
+                <div class="card-body">
+                    <div class="card-tag">Planilha · Finanças Pessoais</div>
+                    <div class="card-title">Controle de Orçamento Pessoal</div>
+                    <p class="card-desc">Planilha de controle financeiro pessoal com renda mensal, despesas totais, saldo disponível, gauge de percentual gasto, gráfico de linha por categoria de despesa e comparativo renda vs despesas.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="card-chips"><span class="chip">Excel</span><span class="chip">Gráficos</span><span class="chip">Finanças</span></div>
+                    <a href="#" class="card-link">Ver →</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contato">
+        <div class="contato-grid">
+            <div>
+                <div class="divider-accent" style="background:linear-gradient(90deg,var(--teal-300),var(--teal-400));"></div>
+                <p class="section-eyebrow">Contato</p>
+                <h2 class="section-title" style="color:white;">Vamos conversar?</h2>
+                <p class="section-sub">Aberta a oportunidades, colaborações e projetos na área de manutenção, dados e engenharia.</p>
+                <div class="contact-items">
+                    <a href="mailto:laylasousa1@gmail.com" class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div><div class="contact-label">E-mail</div><div class="contact-value">laylasousa1@gmail.com</div></div>
+                    </a>
+                    <a href="https://www.linkedin.com/in/layla-sousa-479b28238/" target="_blank" class="contact-item">
+                        <div class="contact-icon">💼</div>
+                        <div><div class="contact-label">LinkedIn</div><div class="contact-value">linkedin.com/in/layla-sousa</div></div>
+                    </a>
+                </div>
+            </div>
+            <div class="contato-quote">
+                <blockquote>"Dados bem analisados são o atalho entre o problema e a solução certa."</blockquote>
+                <cite>— Layla Sousa</cite>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-copy">© 2026 Layla Sousa. Todos os direitos reservados.</div>
+        <div class="footer-logo">Layla.</div>
+    </footer>
+
+    <script>
+        // ── GEAR ANIMATION ──
+        (function () {
+            const canvas = document.getElementById('gearCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const W = 460, H = 400;
+
+            const C = { a:'#0d3b38', b:'#0f5c57', c:'#14897f', d:'#1ab5a8', e:'#4dd4c8' };
+
+            // Draws a detailed gear matching the reference image style:
+            // flat-top teeth, double inner ring, spokes, decorated hub
+            function drawGear(cx, cy, R, teeth, toothH, spokes, angle, col, lw) {
+                const Ri   = R - toothH;          // root (inner) radius
+                const step = (Math.PI * 2) / teeth;
+
+                ctx.save();
+                ctx.translate(cx, cy);
+                ctx.rotate(angle);
+                ctx.strokeStyle = col;
+                ctx.fillStyle   = 'rgba(255,255,255,0.96)';
+                ctx.lineWidth   = lw;
+                ctx.lineJoin    = 'round';
+
+                // ── Tooth body ──
+                ctx.beginPath();
+                for (let i = 0; i < teeth; i++) {
+                    // each tooth: rise from Ri → R, flat top, drop back to Ri
+                    const aRoot1 = step * i - step * 0.48;
+                    const aTip1  = step * i - step * 0.22;
+                    const aTip2  = step * i + step * 0.22;
+                    const aRoot2 = step * i + step * 0.48;
+                    ctx.lineTo(Math.cos(aRoot1) * Ri,  Math.sin(aRoot1) * Ri);
+                    ctx.lineTo(Math.cos(aTip1)  * R,   Math.sin(aTip1)  * R);
+                    ctx.lineTo(Math.cos(aTip2)  * R,   Math.sin(aTip2)  * R);
+                    ctx.lineTo(Math.cos(aRoot2) * Ri,  Math.sin(aRoot2) * Ri);
+                }
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+
+                // ── Outer inner ring (just inside root) ──
+                const r1 = Ri * 0.82;
+                ctx.beginPath();
+                ctx.arc(0, 0, r1, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                // ── Second inner ring ──
+                const r2 = Ri * 0.52;
+                ctx.beginPath();
+                ctx.arc(0, 0, r2, 0, Math.PI * 2);
+                ctx.stroke();
+
+                // ── Spokes connecting r2 → r1 ──
+                for (let i = 0; i < spokes; i++) {
+                    const a = (Math.PI * 2 / spokes) * i;
+                    ctx.beginPath();
+                    ctx.moveTo(Math.cos(a) * (r2 + lw), Math.sin(a) * (r2 + lw));
+                    ctx.lineTo(Math.cos(a) * (r1 - lw), Math.sin(a) * (r1 - lw));
+                    ctx.stroke();
+                }
+
+                // ── Hub outer ring ──
+                const hubR = Ri * 0.18;
+                ctx.beginPath();
+                ctx.arc(0, 0, hubR * 1.7, 0, Math.PI * 2);
+                ctx.fillStyle = col;
+                ctx.fill();
+
+                // ── Hub center dot ──
+                ctx.beginPath();
+                ctx.arc(0, 0, hubR * 0.7, 0, Math.PI * 2);
+                ctx.fillStyle = 'white';
+                ctx.fill();
+
+                ctx.restore();
+            }
+
+            // Layout: 6 gears arranged like the reference (2 large, 1 medium cross, 2 medium, 1 tiny)
+            // speeds are proportional to 1/R so teeth mesh correctly
+            const BASE_SPEED = 0.9; // degrees per frame (arbitrary base for big gear)
+            const gears = [
+                // id, cx,  cy,   R,  teeth, toothH, spokes, col,  dir
+                { cx:  95, cy: 210, R: 82, teeth:20, tH:14, sp:5, col:C.a, dir: 1 },  // big left
+                { cx: 255, cy: 200, R: 95, teeth:24, tH:16, sp:6, col:C.b, dir:-1 },  // big center
+                { cx: 175, cy: 305, R: 50, teeth:12, tH:10, sp:4, col:C.c, dir: 1 },  // cross gear (4 spokes styled below)
+                { cx: 370, cy: 130, R: 56, teeth:14, tH:10, sp:5, col:C.c, dir: 1 },  // upper right med
+                { cx: 390, cy: 270, R: 44, teeth:11, tH: 9, sp:5, col:C.d, dir:-1 },  // lower right med
+                { cx: 415, cy: 355, R: 26, teeth: 7, tH: 6, sp:4, col:C.e, dir: 1 },  // tiny bottom right
+            ];
+
+            // Angular state for each gear, speed ∝ 1/R
+            gears.forEach(g => { g.a = Math.random() * Math.PI * 2; g.speed = (BASE_SPEED / g.R) * 0.012 * g.dir; });
+
+            function loop() {
+                ctx.clearRect(0, 0, W, H);
+
+                // Soft background glow
+                const grd = ctx.createRadialGradient(230, 200, 10, 230, 200, 220);
+                grd.addColorStop(0, 'rgba(26,181,168,0.06)');
+                grd.addColorStop(1, 'rgba(26,181,168,0)');
+                ctx.fillStyle = grd;
+                ctx.fillRect(0, 0, W, H);
+
+                gears.forEach(g => {
+                    g.a += g.speed;
+                    drawGear(g.cx, g.cy, g.R, g.teeth, g.tH, g.sp, g.a, g.col, g.R > 60 ? 2.2 : 1.8);
+                });
+
+                requestAnimationFrame(loop);
+            }
+            loop();
+        })();
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        function filterCat(cat, btn) {
+            document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.projeto-card').forEach(card => {
+                card.style.display = (cat === 'todos' || card.dataset.cat === cat) ? 'flex' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>
